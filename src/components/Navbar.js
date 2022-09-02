@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "../AllCSS/Navbar.css";
-import logo from "../images/maintexr.png";
+
+// Library Imports
+import { Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -15,7 +16,6 @@ import MapsUgcIcon from "@mui/icons-material/MapsUgc";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -26,6 +26,10 @@ import Logout from "@mui/icons-material/Logout";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import SyncOutlinedIcon from "@mui/icons-material/SyncOutlined";
 import Modal from "@mui/material/Modal";
+
+// Local Imports
+import "./navbar.css";
+import logo from "../images/maintexr.png";
 import upload from "../images/uploadimg.png";
 
 const Navbar = () => {

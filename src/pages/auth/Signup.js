@@ -3,13 +3,15 @@ import Button from "@mui/material/Button";
 import { Grid, Container } from "@mui/material";
 import IconButton from "@material-ui/core/IconButton";
 import Facebook from "@mui/icons-material/Facebook";
-import appleimg from "../images/applestore.jpg";
-import googleimg from "../images/googlestore 2.png";
-import maintext from "../images/maintexr.png";
 import { Link } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
+
+import logo from "../../images/maintexr.png";
+import apple_img from "../../images/applestore.jpg";
+import google_img from "../../images/googlestore 2.png";
+
 const SignUpup = () => {
   const [users, setUser] = useState({
     email: "",
@@ -63,7 +65,7 @@ const SignUpup = () => {
               <div className="SignUpRightBody">
                 <a href="/">
                   <h2 className="text-center insta">
-                    <img src={maintext} />
+                    <img src={logo} />
                   </h2>
                 </a>
                 <h5 className="text-center pl-3 SignUpperText">
@@ -207,13 +209,13 @@ const SignUpup = () => {
                     marginLeft: "24px",
                   }}
                 >
-                  <img src={appleimg} width="140px" alt="apple" />
+                  <img src={apple_img} width="140px" alt="apple" />
 
                   <img
                     style={{
                       margin: "0px 25px",
                     }}
-                    src={googleimg}
+                    src={google_img}
                     width="140px"
                     alt="apple"
                   />

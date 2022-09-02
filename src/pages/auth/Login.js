@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+
 import Button from "@mui/material/Button";
-import { Grid, Container } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import appleimg from "../images/applestore.jpg";
-import googleimg from "../images/googlestore 2.png";
-import mobilepic from "../images/carousolimg.png";
-import maintext from "../images/maintexr.png";
-import { Link } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import loginpic1 from "../images/img1.png";
-import loginpic2 from "../images/img2.png";
+import { Link } from "react-router-dom";
+import { Grid, Container } from "@mui/material";
 
-import "../App.css";
+import "./auth.css";
+import login_pic_2 from "../../images/img2.png";
+import login_pic_1 from "../../images/img1.png";
+import logo from "../../images/maintexr.png";
+import apple_img from "../../images/applestore.jpg";
+import google_img from "../../images/googlestore 2.png";
+import mobile_pic from "../../images/carousolimg.png";
 
 import IconButton from "@material-ui/core/IconButton";
 const Login = () => {
@@ -39,10 +40,10 @@ const Login = () => {
           <Grid item xs={12} sm={12} md={6}>
             <div className="LoginLeft">
               <div className="caroul">
-                <img className="carousol-img" src={mobilepic}></img>
+                <img className="carousol-img" src={mobile_pic}></img>
                 <div id="cf3">
-                  <img class="bottom" src={loginpic1} />
-                  <img class="top" src={loginpic2} />
+                  <img class="bottom" src={login_pic_1} />
+                  <img class="top" src={login_pic_2} />
                 </div>
               </div>
             </div>
@@ -52,7 +53,7 @@ const Login = () => {
               <div className="LoginRightBody">
                 <a href="/">
                   <h2 className="text-center insta">
-                    <img src={maintext} />
+                    <img src={logo} />
                   </h2>
                 </a>
                 <form className="login-form">
@@ -156,13 +157,13 @@ const Login = () => {
                     marginLeft: "24px",
                   }}
                 >
-                  <img src={appleimg} width="140px" alt="apple" />
+                  <img src={apple_img} width="140px" alt="apple" />
 
                   <img
                     style={{
                       margin: "0px 25px",
                     }}
-                    src={googleimg}
+                    src={google_img}
                     width="140px"
                     alt="apple"
                   />

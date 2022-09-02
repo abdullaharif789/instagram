@@ -1,0 +1,297 @@
+.LoginRight {
+  max-width: 100%;
+}
+.SignUpRight {
+  max-width: 100%;
+}
+.SignUpperText {
+  font-size: 15px;
+  color: #8e8e8e;
+  font-weight: bold;
+}
+.SignUpBelowp {
+  font-size: 11px;
+  color: #8e8e8e;
+  font-weight: bold;
+  padding: 0px 30px;
+}
+
+.SignUpRightBody {
+  margin-top: 50px;
+  background-color: white !important;
+  padding: 50px 0px;
+  border: 0.5px solid #dbdbdb;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  width: 400px;
+}
+.SignUpRightBodyBelow {
+  margin-top: 10px;
+  background-color: white !important;
+  padding: 10px 10px;
+  border: 0.5px solid #dbdbdb;
+  margin-right: auto;
+  display: block;
+  width: 400px;
+}
+
+.LoginRightBody {
+  margin-top: 50px;
+  background-color: white !important;
+  padding: 50px 0px;
+  border: 0.5px solid #dbdbdb;
+  margin-right: auto;
+  display: block;
+  width: 400px;
+}
+.LoginRightBodyBelow {
+  margin-top: 10px;
+  background-color: white !important;
+  padding: 10px 10px;
+  border: 0.5px solid #dbdbdb;
+  margin-right: auto;
+  display: block;
+  width: 400px;
+}
+.SignUpRightBodyBelow {
+  margin-top: 10px;
+  background-color: white !important;
+  padding: 10px 10px;
+  border: 0.5px solid #dbdbdb;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  width: 400px;
+}
+.RightSideEnd {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px 10px;
+
+  margin-right: auto;
+  display: block;
+  width: 400px;
+}
+.SignUpRightSideEnd {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 400px;
+}
+html {
+  background-color: #fafafa;
+}
+.LoginBody {
+  background-color: #fafafa;
+}
+.SignUpUpBody {
+  background-color: #fafafa;
+}
+.LoginInput {
+  width: 80%;
+  margin: 10px 0px;
+  background-color: #fafafa;
+  font-size: 11.5px;
+}
+.LoginInput::placeholder {
+  font-size: 12px;
+  color: #8e8e8e;
+}
+.LoginInput:focus {
+  box-shadow: none !important;
+  border-color: rgb(92, 91, 91);
+  background-color: #fafafa;
+}
+.LoginForm {
+  margin-top: 40px;
+}
+.insta {
+  font-family: "Dancing Script", cursive;
+}
+.fblogo {
+  color: #385185;
+
+  display: block;
+}
+.fbtext {
+  color: #385185;
+  margin-top: 3px;
+  font-size: 13px !important;
+  padding: 0px 7px;
+  font-weight: bold;
+}
+.forgot {
+  text-decoration: none;
+  color: #385185;
+  font-size: 12px;
+  text-align: center;
+  display: block;
+}
+.forgot:hover {
+  text-decoration: none;
+  color: #385185;
+}
+.hrdivider {
+  position: relative;
+  margin-bottom: 20px;
+  width: 76%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hrdivider span {
+  position: absolute;
+  top: -8px;
+  background-color: white;
+
+  padding: 0 20px;
+  font-weight: bold;
+  font-size: 12px;
+  margin-left: -28px;
+  color: #8e8e8e;
+}
+.Footer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  justify-content: center;
+}
+
+.footlinks {
+  text-decoration: none;
+  color: #8e8e8e;
+  padding: 0px 5px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+.footlinks:hover {
+  text-decoration: none;
+  color: #646464;
+}
+
+.Passworddiv {
+  position: relative;
+}
+.showicon {
+  position: absolute;
+  top: -4px;
+  right: 45px;
+  cursor: pointer !important;
+  display: block;
+}
+
+.showicon button {
+  text-decoration: none !important;
+  color: rgb(61, 61, 61);
+  border: none !important;
+  background-color: none;
+}
+.showicon button:hover {
+  color: black !important;
+}
+.carousol-img {
+  margin-top: 30px;
+  float: right;
+}
+.caroul {
+  position: relative;
+}
+/* carousol img animation css */
+#cf3 {
+  height: 281px;
+  width: 450px;
+  margin: 0;
+}
+
+#cf3 img {
+  position: absolute;
+  top: 55px;
+  right: 58px;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+@keyframes cf3FadeInOut {
+  0% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+#cf3 img.top {
+  animation-name: cf3FadeInOut;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+  animation-direction: alternate;
+}
+/* carousol img animation css */
+@media screen and (max-width: 900px) {
+  .LoginLeft {
+    display: none;
+  }
+  .LoginRightBody {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .LoginRightBodyBelow {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .SignUpRightBody {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .SignUpRightBodyBelow {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .RightSideEnd {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 450px) {
+  .LoginRightBody {
+    width: 100% !important;
+  }
+  .LoginRightBodyBelow {
+    width: 100% !important;
+  }
+  .RightSideEnd {
+    width: 100% !important;
+  }
+  .SignUpRight {
+    width: 100% !important;
+  }
+  .SignUpRightBody {
+    width: 100% !important;
+  }
+  .SignUpRightBodyBelow {
+    width: 100% !important;
+  }
+  .SignUpRightSideEnd {
+    width: 100% !important;
+  }
+}

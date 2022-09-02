@@ -12,11 +12,11 @@ import Skeleton from "@mui/material/Skeleton";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 
-function Media(props) {
+export default function Post(props) {
   const { loading = false } = props;
 
   return (
-    <Card sx={{ maxWidth: 470, m: 2 }}>
+    <Card sx={{ borderRadius: 2 }}>
       <CardHeader
         avatar={
           loading ? (
@@ -88,18 +88,5 @@ function Media(props) {
         )}
       </CardContent>
     </Card>
-  );
-}
-
-Media.propTypes = {
-  loading: PropTypes.bool,
-};
-
-export default function Facebook() {
-  return (
-    <div>
-      <Media loading />
-      <Media />
-    </div>
   );
 }

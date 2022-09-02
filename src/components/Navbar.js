@@ -82,152 +82,155 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="container">
-        <Container maxWidth="xl">
-          <div className="navbar">
-            <div className="nav-left">
-              <img src={logo} alt="logo" width="110px" />
-              <Button
+      <div className="navbar">
+        <div
+          className="container p-0"
+          style={{
+            maxWidth: 935,
+          }}
+        >
+          <div className="nav-left">
+            <img src={logo} alt="logo" width="110px" />
+            <Button
+              sx={{
+                minWidth: "10px",
+                padding: "0px 0px",
+              }}
+              id="fade-button"
+              aria-controls={open ? "fade-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              <KeyboardArrowDownIcon />
+            </Button>
+            <Menu
+              sx={{
+                padding: "0px 0px",
+                height: "150px",
+                marginLeft: "-90px",
+                marginTop: "10px",
+              }}
+              id="fade-menu"
+              MenuListProps={{
+                "aria-labelledby": "fade-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+            >
+              <MenuItem
                 sx={{
-                  minWidth: "10px",
-                  padding: "0px 0px",
+                  fontSize: "13px",
+                  fontWeight: "400",
+                  padding: "3px 20px",
                 }}
-                id="fade-button"
-                aria-controls={open ? "fade-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
+                onClick={handleClose}
               >
-                <KeyboardArrowDownIcon />
-              </Button>
-              <Menu
-                sx={{
-                  padding: "0px 0px",
-                  height: "150px",
-                  marginLeft: "-90px",
-                  marginTop: "10px",
-                }}
-                id="fade-menu"
-                MenuListProps={{
-                  "aria-labelledby": "fade-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                TransitionComponent={Fade}
-              >
-                <MenuItem
-                  sx={{
-                    fontSize: "13px",
-                    fontWeight: "400",
-                    padding: "3px 20px",
-                  }}
-                  onClick={handleClose}
-                >
-                  <i className="nav-left-menu">
-                    <GroupAddIcon
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: "400",
-                      }}
-                    />
-                  </i>
-                  Following
-                </MenuItem>
-                <MenuItem
-                  sx={{
-                    fontSize: "13px",
-                    fontWeight: "400",
-                    padding: "3px 20px",
-                  }}
-                  onClick={handleClose}
-                >
-                  <i className="nav-left-menu">
-                    <StarBorderIcon
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: "400",
-                      }}
-                    />
-                  </i>
-                  Favorites
-                </MenuItem>
-              </Menu>
-            </div>
-            <div className="nav-center">
-              {search.text.length < 1 && (
-                <i>
-                  <SearchIcon
+                <i className="nav-left-menu">
+                  <GroupAddIcon
                     sx={{
-                      fontSize: "20px",
+                      fontSize: "16px",
+                      fontWeight: "400",
                     }}
                   />
                 </i>
-              )}
-
-              <input
-                className="form-control"
-                placeholder="Search"
-                onChange={(e) => setSearch({ text: e.target.value })}
-                value={search.text}
-              />
-
-              <close>
-                {search.text.length > 0 && (
-                  <CancelIcon
+                Following
+              </MenuItem>
+              <MenuItem
+                sx={{
+                  fontSize: "13px",
+                  fontWeight: "400",
+                  padding: "3px 20px",
+                }}
+                onClick={handleClose}
+              >
+                <i className="nav-left-menu">
+                  <StarBorderIcon
                     sx={{
                       fontSize: "16px",
+                      fontWeight: "400",
                     }}
                   />
-                )}
-              </close>
-            </div>
-            <div className="nav-right">
-              <i>
-                <HomeIcon />
-              </i>
-              <i>
-                <MapsUgcIcon />
-              </i>
-              <i>
-                <AddBoxOutlinedIcon onClick={handleOpenModal} />
-              </i>
-              <i>
-                <ExploreOutlinedIcon />
-              </i>
-              <i>
-                <IconButton
-                  onClick={handleClickNotify}
-                  size="small"
-                  sx={{ padding: "0px" }}
-                  aria-controls={open_notify ? "account-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open_notify ? "true" : undefined}
-                >
-                  <FavoriteBorderOutlinedIcon
-                    sx={{ width: 26, height: 26 }}
-                    src="/broken-image.jpg"
-                  />
-                </IconButton>
-              </i>
-              <i>
-                <IconButton
-                  onClick={handleClickuser}
-                  size="small"
-                  sx={{ padding: "0px" }}
-                  aria-controls={open1 ? "account-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open1 ? "true" : undefined}
-                >
-                  <Avatar
-                    sx={{ width: 26, height: 26 }}
-                    src="/broken-image.jpg"
-                  />
-                </IconButton>
-              </i>
-            </div>
+                </i>
+                Favorites
+              </MenuItem>
+            </Menu>
           </div>
-        </Container>
+          <div className="nav-center">
+            {search.text.length < 1 && (
+              <i>
+                <SearchIcon
+                  sx={{
+                    fontSize: "20px",
+                  }}
+                />
+              </i>
+            )}
+
+            <input
+              className="form-control"
+              placeholder="Search"
+              onChange={(e) => setSearch({ text: e.target.value })}
+              value={search.text}
+            />
+
+            <close>
+              {search.text.length > 0 && (
+                <CancelIcon
+                  sx={{
+                    fontSize: "16px",
+                  }}
+                />
+              )}
+            </close>
+          </div>
+          <div className="nav-right">
+            <i>
+              <HomeIcon />
+            </i>
+            <i>
+              <MapsUgcIcon />
+            </i>
+            <i>
+              <AddBoxOutlinedIcon onClick={handleOpenModal} />
+            </i>
+            <i>
+              <ExploreOutlinedIcon />
+            </i>
+            <i>
+              <IconButton
+                onClick={handleClickNotify}
+                size="small"
+                sx={{ padding: "0px" }}
+                aria-controls={open_notify ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open_notify ? "true" : undefined}
+              >
+                <FavoriteBorderOutlinedIcon
+                  sx={{ width: 26, height: 26 }}
+                  src="/broken-image.jpg"
+                />
+              </IconButton>
+            </i>
+            <i>
+              <IconButton
+                onClick={handleClickuser}
+                size="small"
+                sx={{ padding: "0px" }}
+                aria-controls={open1 ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open1 ? "true" : undefined}
+              >
+                <Avatar
+                  sx={{ width: 26, height: 26 }}
+                  src="/broken-image.jpg"
+                />
+              </IconButton>
+            </i>
+          </div>
+        </div>
         {/* navbar user menu */}
         <Menu
           anchorEl={usermenu}

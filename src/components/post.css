@@ -1,0 +1,132 @@
+.post_buttons i {
+  padding: 0px 5px;
+  cursor: pointer;
+}
+.post_buttons i:hover {
+  color: #787878;
+}
+.post_buttons {
+  justify-content: space-between;
+}
+.likes {
+  font-size: 14px;
+  font-weight: 650;
+  margin-left: -5px;
+  margin-top: 10px;
+}
+.text {
+  height: 35px;
+
+  overflow: hidden;
+}
+.containerr {
+  position: relative;
+  font-size: 13px;
+  margin-top: -5px;
+  margin-left: -5px;
+}
+.containerr a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+label {
+  position: absolute;
+  top: 100%;
+}
+input {
+  display: none;
+}
+label:after {
+  font-weight: bold;
+  font-size: 13px;
+  content: "...more";
+}
+input:checked + label:after {
+  font-weight: bold;
+  content: "...less";
+  font-size: 13px;
+}
+input:checked ~ div {
+  height: 100%;
+  font-size: 13px;
+}
+.show_allcoments {
+  margin-top: 30px;
+  font-size: 13px;
+  color: #adadad;
+  margin-left: -5px;
+}
+.show_allcoments a {
+  text-decoration: none;
+  color: #adadad;
+}
+.post_time {
+  margin-top: 5px;
+  font-size: 10px;
+  color: #adadad;
+  margin-left: -5px;
+}
+.comment_styling {
+  color: black !important;
+  margin: 5px 0px;
+}
+.comment_styling p {
+  margin: 0px;
+  font-size: 13px;
+}
+.react-input-emoji--button {
+  position: absolute;
+  top: 13.5px;
+  left: -15px;
+  display: block;
+  text-align: center;
+  padding: 0 10px;
+  overflow: hidden;
+  transition: color 0.1s ease-out;
+  margin: 0;
+  box-shadow: none;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  z-index: 999;
+}
+.react-input-emoji--placeholder {
+  left: 45px;
+  font-size: 13px;
+}
+.react-input-emoji--input {
+  padding: 9px 45px 11px;
+  font-size: 13px;
+  margin-top: 2px;
+}
+.react-emoji-picker--wrapper {
+  left: 10px;
+}
+.react-emoji {
+  width: 500px;
+}
+.react-input-emoji--container {
+  margin: 6px -7px -24px -18px;
+}
+.react-input-emoji--button svg {
+  height: 20px;
+  width: 20px;
+}
+.comment_post {
+  position: relative;
+}
+.comment_submit {
+  position: absolute;
+  top: 16px;
+  right: 0;
+  border: none;
+  background-color: white;
+  color: #0095f6;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 9999;
+}

@@ -178,7 +178,7 @@ const SignUpup = () => {
                   >
                     Have an account?
                   </p>
-                  <Link to="/Login">
+                  <Link to="/login">
                     <a
                       style={{
                         fontSize: "13px",

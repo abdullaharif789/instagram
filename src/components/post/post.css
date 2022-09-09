@@ -107,7 +107,7 @@ input:checked ~ div {
   left: 10px;
 }
 .react-emoji {
-  width: 500px;
+  width: 694px;
 }
 .react-input-emoji--container {
   margin: 6px -7px -24px -18px;
@@ -128,5 +128,5 @@ input:checked ~ div {
   color: #0095f6;
   font-weight: bold;
   font-size: 14px;
-  z-index: 9999;
+  z-index: 2;
 }

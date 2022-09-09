@@ -96,4 +96,7 @@
   .nav-right {
     margin-top: 10px;
   }
+  .setting {
+    justify-content: center !important;
+  }
 }

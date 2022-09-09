@@ -126,7 +126,7 @@ const Login = () => {
                   >
                     Don't have an account?
                   </p>
-                  <Link to="/Signup">
+                  <Link to="/signup">
                     <a
                       style={{
                         fontSize: "13px",

@@ -29,8 +29,8 @@ import Modal from "@mui/material/Modal";
 
 // Local Imports
 import "./navbar.css";
-import logo from "../images/maintexr.png";
-import upload from "../images/uploadimg.png";
+import logo from "../../images/maintexr.png";
+import upload from "../../images/uploadimg.png";
 
 const Navbar = () => {
   const style = {
@@ -79,19 +79,22 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const removeSearchText = () => {
+    setSearch({ text: "" });
+  };
 
   return (
     <>
       <div className="navbar">
         <div
-          className="container p-0"
+          className="container p-0 setting"
           style={{
             maxWidth: 935,
           }}
         >
           <div className="nav-left">
             <img src={logo} alt="logo" width="110px" />
-            <Button
+            {/* <Button
               sx={{
                 minWidth: "10px",
                 padding: "0px 0px",
@@ -156,7 +159,7 @@ const Navbar = () => {
                 </i>
                 Favorites
               </MenuItem>
-            </Menu>
+            </Menu> */}
           </div>
           <div className="nav-center">
             {search.text.length < 1 && (
@@ -179,6 +182,7 @@ const Navbar = () => {
             <close>
               {search.text.length > 0 && (
                 <CancelIcon
+                  onClick={removeSearchText}
                   sx={{
                     fontSize: "16px",
                   }}

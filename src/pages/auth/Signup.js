@@ -128,20 +128,18 @@ const SignUpup = () => {
                       placeholder="Password"
                     />
 
-                    {values.password.length > 0 && (
-                      <i className="showicon">
-                        <IconButton
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                        >
-                          {values.showPassword ? (
-                            <VisibilityIcon sx={{ fontSize: 17 }} />
-                          ) : (
-                            <VisibilityOffIcon sx={{ fontSize: 17 }} />
-                          )}
-                        </IconButton>
-                      </i>
-                    )}
+                    <i className="showicon">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {values.showPassword ? (
+                          <VisibilityIcon sx={{ fontSize: 17 }} />
+                        ) : (
+                          <VisibilityOffIcon sx={{ fontSize: 17 }} />
+                        )}
+                      </IconButton>
+                    </i>
                   </div>
                   <p className="text-center pl-3 SignUpBelowp">
                     People who use our service may have uploaded your contact

@@ -70,20 +70,18 @@ const Login = () => {
                       className="form-control input-field LoginInput mx-auto "
                       placeholder="Password"
                     />
-                    {values.password.length > 0 && (
-                      <i className="showicon">
-                        <IconButton
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                        >
-                          {values.showPassword ? (
-                            <VisibilityIcon sx={{ fontSize: 17 }} />
-                          ) : (
-                            <VisibilityOffIcon sx={{ fontSize: 17 }} />
-                          )}
-                        </IconButton>
-                      </i>
-                    )}
+                    <i className="showicon">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {values.showPassword ? (
+                          <VisibilityIcon sx={{ fontSize: 17 }} />
+                        ) : (
+                          <VisibilityOffIcon sx={{ fontSize: 17 }} />
+                        )}
+                      </IconButton>
+                    </i>
                   </div>
 
                   <div className="mx-auto d-block text-center">

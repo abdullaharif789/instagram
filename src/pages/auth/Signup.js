@@ -3,58 +3,59 @@ import Button from "@mui/material/Button";
 import { Grid, Container } from "@mui/material";
 import IconButton from "@material-ui/core/IconButton";
 import Facebook from "@mui/icons-material/Facebook";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { keys, startCase } from "lodash";
 import axios from "axios";
+import { API_URL } from "../../constants";
 
 import logo from "../../images/maintexr.png";
 import apple_img from "../../images/applestore.jpg";
 import google_img from "../../images/googlestore 2.png";
 
 const SignUpup = () => {
-  const [users, setUser] = useState({
+  const navigate = useNavigate();
+  const [errors, setErrors] = React.useState([]);
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [user, setUser] = useState({
     email: "",
     fullname: "",
     username: "",
     password: "",
   });
 
-  const [values, setValues] = React.useState({
-    password: "",
-    showPassword: false,
-  });
-
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const handlePasswordChange = (prop) => (e) => {
-    setValues({ ...values, [prop]: e.target.value });
-
-    setUser({ ...users, password: e.target.value });
-  };
-  const sign_up = async (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
-    if (
-      users.email == "" ||
-      users.fullname == "" ||
-      users.username == "" ||
-      users.password == ""
-    ) {
-      alert("Please Enter All Fields");
+    const errs = [];
+    keys(user).forEach((key) => {
+      if (user[key] === "") {
+        errs.push({ msg: `${startCase(key)} is required.` });
+      }
+    });
+    if (errs.length > 0) {
+      setErrors(errs);
       return;
     }
-    await axios.post(`http://localhost:4000/users`, users).then(({ data }) => {
-      if (data.success) {
-        alert("User created successfully.");
-      } else alert("Email already exists.");
-      // navigate("/products");
-    });
+    // TODO: Validate Email By Umer
+    // Make API Call
+    await axios
+      .post(`${API_URL}auth/signup`, user)
+      .then(({ data }) => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        const errs = error.response.data.errors;
+        setErrors(errs);
+      });
   };
   return (
     <div className="SignUpUpBody">
@@ -98,32 +99,34 @@ const SignUpup = () => {
                     type="email"
                     className="form-control LoginInput mx-auto"
                     placeholder="Email"
-                    value={users.email}
+                    value={user.email}
                     onChange={(e) =>
-                      setUser({ ...users, email: e.target.value })
+                      setUser({ ...user, email: e.target.value })
                     }
                   />
                   <input
                     className="form-control LoginInput mx-auto "
                     placeholder="Full Name"
-                    value={users.fullname}
+                    value={user.fullname}
                     onChange={(e) =>
-                      setUser({ ...users, fullname: e.target.value })
+                      setUser({ ...user, fullname: e.target.value })
                     }
                   />
                   <input
                     className="form-control LoginInput mx-auto "
                     placeholder="User Name"
-                    value={users.username}
+                    value={user.username}
                     onChange={(e) =>
-                      setUser({ ...users, username: e.target.value })
+                      setUser({ ...user, username: e.target.value })
                     }
                   />
                   <div className="Passworddiv">
                     <input
-                      type={values.showPassword ? "text" : "password"}
-                      onChange={handlePasswordChange("password")}
-                      value={values.password}
+                      type={showPassword ? "text" : "password"}
+                      onChange={(e) =>
+                        setUser({ ...user, password: e.target.value })
+                      }
+                      value={user.password}
                       className="form-control input-field LoginInput mx-auto "
                       placeholder="Password"
                     />
@@ -133,7 +136,7 @@ const SignUpup = () => {
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                       >
-                        {values.showPassword ? (
+                        {showPassword ? (
                           <VisibilityIcon sx={{ fontSize: 17 }} />
                         ) : (
                           <VisibilityOffIcon sx={{ fontSize: 17 }} />
@@ -152,7 +155,7 @@ const SignUpup = () => {
                   </p>
                   <div className="mx-auto d-block text-center">
                     <Button
-                      onClick={sign_up}
+                      onClick={signUp}
                       variant="contained"
                       style={{
                         maxWidth: "50%",
@@ -166,6 +169,27 @@ const SignUpup = () => {
                     </Button>
                   </div>
                 </form>
+                {errors.length > 0 && (
+                  <div
+                    style={{
+                      width: "80%",
+                      margin: "auto",
+                      marginTop: 10,
+                    }}
+                  >
+                    <div className="alert alert-danger">
+                      <ul
+                        style={{
+                          paddingLeft: 12,
+                        }}
+                      >
+                        {errors.map((error, index) => (
+                          <li key={index}>{error.msg}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="SignUpRightBodyBelow">
                 <div className="rightSideBelow d-flex justify-content-center mt-2">
@@ -260,7 +284,7 @@ const SignUpup = () => {
             Instagram Lite
           </a>
           <a className="footlinks" href="/">
-            Contact Uploading & Non Users
+            Contact Uploading & Non user
           </a>
         </div>
         <div className="Footer">

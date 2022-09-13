@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/navbar";
 import Post from "../components/post";
+import { getAuthUser } from "../utils";
 
 const Index = () => {
+  useEffect(() => {
+    console.log(getAuthUser());
+  }, []);
   return (
     <div>
       <Navbar />

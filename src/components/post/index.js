@@ -29,7 +29,6 @@ export default function Post(props) {
     }
   };
 
-  console.log(disable);
   const add_comment = () => {
     setAllComments([{ text }, ...allComments]);
     setText("");
@@ -132,7 +131,7 @@ export default function Post(props) {
             </div>
             <div className="containerr">
               <input id="ch" type="checkbox" />
-              <label for="ch"></label>
+              <label></label>
               <div className="text">
                 <a href="/">j.junaidjamshed </a>Decorative and basics, all are
                 on sale! Grab your favorites at flat 25% 35% off from our

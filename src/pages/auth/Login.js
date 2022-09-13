@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Grid, Container } from "@mui/material";
 
 import "./auth.css";
@@ -14,25 +14,53 @@ import logo from "../../images/maintexr.png";
 import apple_img from "../../images/applestore.jpg";
 import google_img from "../../images/googlestore 2.png";
 import mobile_pic from "../../images/carousolimg.png";
-
+import axios from "axios";
 import IconButton from "@material-ui/core/IconButton";
+import { API_URL, TOKEN_KEY } from "../../constants";
+import { keys, startCase } from "lodash";
+
 const Login = () => {
-  const [values, setValues] = React.useState({
-    password: "",
-    showPassword: false,
+  const navigate = useNavigate();
+  const [errors, setErrors] = React.useState([]);
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [user, setUser] = React.useState({
+    username: "umerjaved123",
+    password: "pakistan777",
   });
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const handlePasswordChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+  const loginUser = async (e) => {
+    setErrors([]);
+    e.preventDefault();
+    const errs = [];
+    keys(user).forEach((key) => {
+      if (user[key] === "") {
+        errs.push({ msg: `${startCase(key)} is invalid` });
+      }
+    });
+    if (errs.length > 0) {
+      setErrors(errs);
+      return;
+    }
+    await axios
+      .post(`${API_URL}auth/login`, user)
+      .then(({ data }) => {
+        localStorage.setItem(TOKEN_KEY, data.token);
+        navigate("/");
+      })
+      .catch((error) => {
+        const errs = error.response.data.errors;
+        setErrors(errs);
+      });
   };
+
   return (
     <div className="LoginBody">
       <Container className="mt-5" maxWidth="lg">
@@ -59,14 +87,19 @@ const Login = () => {
                 <form className="login-form">
                   <input
                     className="form-control LoginInput mx-auto"
-                    placeholder="Phone number, username, or email"
+                    placeholder="Username"
+                    value={user.username}
+                    onChange={(e) =>
+                      setUser({ ...user, username: e.target.value })
+                    }
                   />
                   <div className="Passworddiv">
                     <input
-                      id="passowordid"
-                      type={values.showPassword ? "text" : "password"}
-                      onChange={handlePasswordChange("password")}
-                      value={values.password}
+                      type={showPassword ? "text" : "password"}
+                      value={user.password}
+                      onChange={(e) =>
+                        setUser({ ...user, password: e.target.value })
+                      }
                       className="form-control input-field LoginInput mx-auto "
                       placeholder="Password"
                     />
@@ -75,7 +108,7 @@ const Login = () => {
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                       >
-                        {values.showPassword ? (
+                        {showPassword ? (
                           <VisibilityIcon sx={{ fontSize: 17 }} />
                         ) : (
                           <VisibilityOffIcon sx={{ fontSize: 17 }} />
@@ -86,6 +119,7 @@ const Login = () => {
 
                   <div className="mx-auto d-block text-center">
                     <Button
+                      onClick={loginUser}
                       variant="contained"
                       style={{
                         maxWidth: "50%",
@@ -97,6 +131,27 @@ const Login = () => {
                     >
                       Log In
                     </Button>
+                    {errors.length > 0 && (
+                      <div
+                        style={{
+                          width: "80%",
+                          margin: "auto",
+                          marginTop: 10,
+                        }}
+                      >
+                        <div className="alert alert-danger">
+                          <ul
+                            style={{
+                              paddingLeft: 12,
+                            }}
+                          >
+                            {errors.map((error, index) => (
+                              <li key={index}>{error.msg}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </form>
                 <div className="mt-4">

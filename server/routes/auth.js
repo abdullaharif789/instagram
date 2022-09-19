@@ -74,7 +74,7 @@ router.post(
     }
     // Generate token
     const token = jwt.sign(
-      { id: user._id, fullname: user.fullname },
+      { id: user._id, fullname: user.fullname, username: user.username },
       SECRET_KEY
     );
     res.json({ token });

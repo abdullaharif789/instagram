@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 // Library Imports
-import { Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Fade from "@mui/material/Fade";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SearchIcon from "@mui/icons-material/Search";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 import CancelIcon from "@mui/icons-material/Cancel";
 import HomeIcon from "@mui/icons-material/Home";
 import MapsUgcIcon from "@mui/icons-material/MapsUgc";
@@ -31,21 +26,12 @@ import Modal from "@mui/material/Modal";
 import "./navbar.css";
 import logo from "../../images/maintexr.png";
 import upload from "../../images/uploadimg.png";
+import { TOKEN_KEY } from "../../constants";
+import { useNavigate } from "react-router";
 
 const Navbar = () => {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "40%",
-    height: "83%",
-    bgcolor: "background.paper",
-    borderRadius: 2,
-    boxShadow: 24,
-    p: 1.5,
-    border: "none",
-  };
+  const navigate = useNavigate();
+  const inputImage = useRef(null);
   const [openModel, setModel] = React.useState(false);
   const handleOpenModal = () => setModel(true);
   const handleCloseModal = () => setModel(false);
@@ -71,17 +57,31 @@ const Navbar = () => {
     setUsermenu(null);
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const removeSearchText = () => {
     setSearch({ text: "" });
   };
+  //
+  const [post, setPost] = React.useState({
+    image: upload,
+  });
+
+  // Handler Functions
+  const logout = () => {
+    localStorage.removeItem(TOKEN_KEY);
+    navigate("/login");
+  };
+  const pickImage = async (e) => {
+    const file = e.target.files[0];
+    const base64Image = await convertFileToBase64(file);
+    setPost({ ...post, image: base64Image });
+  };
+  const convertFileToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+    });
 
   return (
     <>
@@ -94,72 +94,6 @@ const Navbar = () => {
         >
           <div className="nav-left">
             <img src={logo} alt="logo" width="110px" />
-            {/* <Button
-              sx={{
-                minWidth: "10px",
-                padding: "0px 0px",
-              }}
-              id="fade-button"
-              aria-controls={open ? "fade-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClick}
-            >
-              <KeyboardArrowDownIcon />
-            </Button>
-            <Menu
-              sx={{
-                padding: "0px 0px",
-                height: "150px",
-                marginLeft: "-90px",
-                marginTop: "10px",
-              }}
-              id="fade-menu"
-              MenuListProps={{
-                "aria-labelledby": "fade-button",
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              TransitionComponent={Fade}
-            >
-              <MenuItem
-                sx={{
-                  fontSize: "13px",
-                  fontWeight: "400",
-                  padding: "3px 20px",
-                }}
-                onClick={handleClose}
-              >
-                <i className="nav-left-menu">
-                  <GroupAddIcon
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "400",
-                    }}
-                  />
-                </i>
-                Following
-              </MenuItem>
-              <MenuItem
-                sx={{
-                  fontSize: "13px",
-                  fontWeight: "400",
-                  padding: "3px 20px",
-                }}
-                onClick={handleClose}
-              >
-                <i className="nav-left-menu">
-                  <StarBorderIcon
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "400",
-                    }}
-                  />
-                </i>
-                Favorites
-              </MenuItem>
-            </Menu> */}
           </div>
           <div className="nav-center">
             {search.text.length < 1 && (
@@ -313,6 +247,7 @@ const Navbar = () => {
             sx={{
               fontSize: "12px",
             }}
+            onClick={logout}
           >
             <ListItemIcon>
               <Logout sx={{ width: 15, height: 15 }} />
@@ -362,26 +297,56 @@ const Navbar = () => {
 
         {/* Creating Post Modal */}
         <Modal
-          open={openModel}
+          open={true}
+          // open={openModel}
           onClose={handleCloseModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "40%",
+              height: "83%",
+              bgcolor: "background.paper",
+              borderRadius: 2,
+              boxShadow: 24,
+              p: 1.5,
+              border: "none",
+            }}
+          >
             <p className="modal-text">Create new post</p>
-
             <Divider />
             <div className="upload-img">
-              <img src={upload} alt="upload photos" width="100px" />
+              <img
+                src={post.image}
+                alt="upload photos"
+                className="img-fluid"
+                style={{
+                  maxHeight: 500,
+                }}
+              />
               <h5>Drag photos and videos here</h5>
               <Button
                 sx={{
                   marginTop: "10px",
                 }}
                 variant="contained"
+                onClick={() => {
+                  inputImage.current.click();
+                }}
               >
                 Select From Computer
               </Button>
+              <input
+                ref={inputImage}
+                style={{ display: "none" }}
+                type="file"
+                onChange={pickImage}
+              />
             </div>
           </Box>
         </Modal>

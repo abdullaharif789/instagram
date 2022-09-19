@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { Grid, Container } from "@mui/material";
 import IconButton from "@material-ui/core/IconButton";
@@ -13,6 +13,7 @@ import { API_URL } from "../../constants";
 import logo from "../../images/maintexr.png";
 import apple_img from "../../images/applestore.jpg";
 import google_img from "../../images/googlestore 2.png";
+import { getAuthUser } from "../../utils";
 
 const SignUpup = () => {
   const navigate = useNavigate();
@@ -57,6 +58,11 @@ const SignUpup = () => {
         setErrors(errs);
       });
   };
+  useEffect(() => {
+    if (getAuthUser()) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="SignUpUpBody">
       <Container className="mt-5" maxWidth="lg">

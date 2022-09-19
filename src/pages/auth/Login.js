@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Button from "@mui/material/Button";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -18,6 +18,7 @@ import axios from "axios";
 import IconButton from "@material-ui/core/IconButton";
 import { API_URL, TOKEN_KEY } from "../../constants";
 import { keys, startCase } from "lodash";
+import { getAuthUser } from "../../utils";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -60,7 +61,11 @@ const Login = () => {
         setErrors(errs);
       });
   };
-
+  useEffect(() => {
+    if (getAuthUser()) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="LoginBody">
       <Container className="mt-5" maxWidth="lg">

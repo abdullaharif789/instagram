@@ -6,7 +6,7 @@ const userAuth = require("../middlewares/userAuth");
 const router = express.Router();
 
 router.get("/", userAuth, async (req, res) => {
-  const posts = await Post.find({ user: req.userId });
+  const posts = await Post.find({ user: req.userId }).sort([["date", -1]]);
   return res.json(posts);
 });
 

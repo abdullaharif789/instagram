@@ -54,7 +54,9 @@ export default function Post(props) {
           ) : (
             <Avatar
               alt="Ted talk"
-              src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
+              src={`https://randomuser.me/api/portraits/men/${
+                Math.floor(Math.random() * 100) + 1
+              }.jpg`}
             />
           )
         }
@@ -88,7 +90,7 @@ export default function Post(props) {
       {loading ? (
         <Skeleton sx={{ height: 500 }} animation="wave" variant="rectangular" />
       ) : (
-        <CardMedia component="img" height="460" image={post.image} />
+        <CardMedia component="img" height="500" image={post.image} />
       )}
 
       <CardContent>

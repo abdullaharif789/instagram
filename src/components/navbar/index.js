@@ -73,7 +73,6 @@ const Navbar = () => {
   const pickImage = async (e) => {
     const file = e.target.files[0];
     const base64Image = await convertFileToBase64(file);
-    console.log(base64Image);
     setPost({ ...post, image: base64Image });
   };
   const convertFileToBase64 = (file) =>

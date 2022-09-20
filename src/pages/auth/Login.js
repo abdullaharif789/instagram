@@ -25,8 +25,8 @@ const Login = () => {
   const [errors, setErrors] = React.useState([]);
   const [showPassword, setShowPassword] = React.useState(false);
   const [user, setUser] = React.useState({
-    username: "umerjaved123",
-    password: "pakistan777",
+    username: "abdullaharif.pk",
+    password: "rooot",
   });
 
   const handleClickShowPassword = () => {

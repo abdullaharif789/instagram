@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const PostSchema = new Schema({
-  image: { type: String, required: true, unique: true },
+  image: { type: String, required: true },
   description: { type: String, default: null },
   user: {
     type: mongoose.Schema.Types.ObjectId,

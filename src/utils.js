@@ -7,3 +7,7 @@ export function getAuthUser() {
   }
   return null;
 }
+export function getAuthToken() {
+  const token = localStorage.getItem(TOKEN_KEY);
+  return token;
+}

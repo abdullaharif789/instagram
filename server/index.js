@@ -1,11 +1,13 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const connectDatabase = require("./db");
 const app = express();
 
 const port = 4000;
 
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors());
 
 connectDatabase();

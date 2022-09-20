@@ -9,8 +9,9 @@ router.get("/", userAuth, async (req, res) => {
   const posts = await Post.find({ user: req.userId });
   return res.json(posts);
 });
+
 router.post("/", userAuth, async (req, res) => {
-  const post = await Post.create(req.body);
+  const post = await Post.create({ image: req.body.image, user: req.userId });
   return res.json(post);
 });
 

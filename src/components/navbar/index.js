@@ -73,6 +73,7 @@ const Navbar = () => {
   const pickImage = async (e) => {
     const file = e.target.files[0];
     const base64Image = await convertFileToBase64(file);
+    console.log(base64Image);
     setPost({ ...post, image: base64Image });
   };
   const convertFileToBase64 = (file) =>
@@ -297,8 +298,7 @@ const Navbar = () => {
 
         {/* Creating Post Modal */}
         <Modal
-          open={true}
-          // open={openModel}
+          open={openModel}
           onClose={handleCloseModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"

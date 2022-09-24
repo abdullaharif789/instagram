@@ -21,13 +21,6 @@ export default function Post(props) {
   const [allComments, setAllComments] = useState([]);
   const [text, setText] = useState();
   const [disable, setdisable] = useState(false);
-  const post_active = () => {
-    if (text.length < 1) {
-      setdisable(false);
-    } else {
-      setdisable(true);
-    }
-  };
 
   const add_comment = () => {
     setAllComments([{ text }, ...allComments]);
@@ -92,7 +85,6 @@ export default function Post(props) {
       ) : (
         <CardMedia component="img" height="500" image={post.image} />
       )}
-
       <CardContent>
         {loading ? (
           <React.Fragment>

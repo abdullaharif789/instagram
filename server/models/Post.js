@@ -2,14 +2,17 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const PostSchema = new Schema({
-  image: { type: String, required: true },
   description: { type: String, default: null },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "users",
   },
-  date: { type: Date, default: Date.now },
+
+  img: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 const Post = mongoose.model("posts", PostSchema);
-Post.createIndexes();
+
 module.exports = Post;

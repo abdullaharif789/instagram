@@ -21,13 +21,16 @@ import Logout from "@mui/icons-material/Logout";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import SyncOutlinedIcon from "@mui/icons-material/SyncOutlined";
 import Modal from "@mui/material/Modal";
+import { API_URL, HEADER_TOKEN_KEY, TOKEN_KEY } from "../../constants";
+
+import { getAuthToken } from "../../utils";
 
 // Local Imports
 import "./navbar.css";
 import logo from "../../images/maintexr.png";
-import upload from "../../images/uploadimg.png";
-import { TOKEN_KEY } from "../../constants";
+
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -49,6 +52,7 @@ const Navbar = () => {
   });
 
   const [usermenu, setUsermenu] = React.useState(null);
+
   const open1 = Boolean(usermenu);
   const handleClickuser = (event) => {
     setUsermenu(event.currentTarget);
@@ -62,7 +66,8 @@ const Navbar = () => {
   };
   //
   const [post, setPost] = React.useState({
-    image: upload,
+    description: "",
+    image: "",
   });
 
   // Handler Functions
@@ -70,18 +75,30 @@ const Navbar = () => {
     localStorage.removeItem(TOKEN_KEY);
     navigate("/login");
   };
-  const pickImage = async (e) => {
+
+  //Posting Post Data From LocalHost
+  const PostImage = async (e) => {
     const file = e.target.files[0];
-    const base64Image = await convertFileToBase64(file);
-    setPost({ ...post, image: base64Image });
+    setPost({ image: file });
   };
-  const convertFileToBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = reject;
-    });
+  const fileUploadHandler = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("description", post.description);
+    formData.append("testImage", post.image);
+
+    const config = {
+      headers: {
+        [HEADER_TOKEN_KEY]: getAuthToken(),
+      },
+    };
+
+    try {
+      axios.post(`${API_URL}posts`, formData, config).then(({ data }) => {
+        console.log(data);
+      });
+    } catch (error) {}
+  };
 
   return (
     <>
@@ -319,34 +336,52 @@ const Navbar = () => {
           >
             <p className="modal-text">Create new post</p>
             <Divider />
-            <div className="upload-img">
-              <img
-                src={post.image}
-                alt="upload photos"
-                className="img-fluid"
-                style={{
-                  maxHeight: 500,
-                }}
-              />
-              <h5>Drag photos and videos here</h5>
-              <Button
-                sx={{
-                  marginTop: "10px",
-                }}
-                variant="contained"
-                onClick={() => {
-                  inputImage.current.click();
-                }}
-              >
-                Select From Computer
-              </Button>
-              <input
-                ref={inputImage}
-                style={{ display: "none" }}
-                type="file"
-                onChange={pickImage}
-              />
-            </div>
+            <form encType="multipart/form">
+              <div className="upload-img">
+                <img
+                  src="/"
+                  alt="upload photos"
+                  className="img-fluid"
+                  style={{
+                    maxHeight: 500,
+                  }}
+                />
+                <h5>Drag photos and videos here</h5>
+                <Button
+                  sx={{
+                    marginTop: "10px",
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    inputImage.current.click();
+                  }}
+                >
+                  Select From Computer
+                </Button>
+                <input
+                  ref={inputImage}
+                  style={{ display: "none" }}
+                  type="file"
+                  name="testImage"
+                  onChange={PostImage}
+                />
+                <p className="mt-4">Description</p>
+                <input
+                  name="description"
+                  onChange={(e) =>
+                    setPost({ ...post, description: e.target.value })
+                  }
+                  className="form-control w-75"
+                />
+                <button
+                  className="btn btn-success mt-3"
+                  type="submit"
+                  onClick={fileUploadHandler}
+                >
+                  Add Post
+                </button>
+              </div>
+            </form>
           </Box>
         </Modal>
         {/* Creating Post Modal */}

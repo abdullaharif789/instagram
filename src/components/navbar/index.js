@@ -28,6 +28,7 @@ import { getAuthToken } from "../../utils";
 // Local Imports
 import "./navbar.css";
 import logo from "../../images/maintexr.png";
+import uploadImg from "../../images/uploadimg.png";
 
 import { useNavigate } from "react-router";
 import axios from "axios";
@@ -67,7 +68,7 @@ const Navbar = () => {
   //
   const [post, setPost] = React.useState({
     description: "",
-    image: "",
+    image: uploadImg,
   });
 
   // Handler Functions
@@ -77,27 +78,32 @@ const Navbar = () => {
   };
 
   //Posting Post Data From LocalHost
-  const PostImage = async (e) => {
+  const pickImageFromDisk = (e) => {
     const file = e.target.files[0];
-    setPost({ image: file });
+    setPost({ ...post, image: URL.createObjectURL(file), file });
   };
-  const fileUploadHandler = (event) => {
+  const addPost = (event) => {
+    console.log(post);
     event.preventDefault();
     const formData = new FormData();
     formData.append("description", post.description);
-    formData.append("testImage", post.image);
+    formData.append("image", post.file);
 
     const config = {
       headers: {
         [HEADER_TOKEN_KEY]: getAuthToken(),
       },
     };
-
-    try {
-      axios.post(`${API_URL}posts`, formData, config).then(({ data }) => {
-        console.log(data);
+    const url = `${API_URL}posts`;
+    axios
+      .post(url, formData, config)
+      .then(({ data }) => {
+        setModel(false);
+      })
+      .catch((error) => {
+        alert("Error on adding post.");
+        setModel(false);
       });
-    } catch (error) {}
   };
 
   return (
@@ -332,16 +338,16 @@ const Navbar = () => {
               boxShadow: 24,
               p: 1.5,
               border: "none",
+              overflow: "auto",
             }}
           >
             <p className="modal-text">Create new post</p>
             <Divider />
-            <form encType="multipart/form">
+            <form method="POST" encType="multipart/form">
               <div className="upload-img">
                 <img
-                  src="/"
-                  alt="upload photos"
-                  className="img-fluid"
+                  src={post.image}
+                  className="img-fluid mt-4"
                   style={{
                     maxHeight: 500,
                   }}
@@ -362,24 +368,30 @@ const Navbar = () => {
                   ref={inputImage}
                   style={{ display: "none" }}
                   type="file"
-                  name="testImage"
-                  onChange={PostImage}
+                  name="image"
+                  onChange={pickImageFromDisk}
                 />
                 <p className="mt-4">Description</p>
-                <input
+                <textarea
+                  style={{
+                    resize: "none",
+                  }}
+                  className="form-control w-75"
                   name="description"
                   onChange={(e) =>
                     setPost({ ...post, description: e.target.value })
                   }
-                  className="form-control w-75"
-                />
-                <button
-                  className="btn btn-success mt-3"
+                ></textarea>
+                <Button
+                  sx={{
+                    marginTop: "10px",
+                  }}
+                  variant="contained"
+                  onClick={addPost}
                   type="submit"
-                  onClick={fileUploadHandler}
                 >
                   Add Post
-                </button>
+                </Button>
               </div>
             </form>
           </Box>

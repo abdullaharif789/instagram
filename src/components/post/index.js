@@ -5,6 +5,7 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Avatar from "@mui/material/Avatar";
+import moment from "moment";
 
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -23,7 +24,7 @@ export default function Post(props) {
   const [disable, setdisable] = useState(false);
 
   const add_comment = () => {
-    setAllComments([{ text }, ...allComments]);
+    setAllComments([{ text, username: "abdullaharif.pk" }, ...allComments]);
     setText("");
   };
 
@@ -73,7 +74,7 @@ export default function Post(props) {
               style={{ marginBottom: 6 }}
             />
           ) : (
-            "Ted"
+            post?.user?.fullname
           )
         }
         subheader={
@@ -119,23 +120,21 @@ export default function Post(props) {
               <p>550 likes</p>
             </div>
             <div className="containerr">
-              <input id="ch" type="checkbox" />
-              <label></label>
               <div className="text">
-                <a href="/">j.junaidjamshed </a>Decorative and basics, all are
-                on sale! Grab your favorites at flat 25% 35% off from our
-                Defence Day Sale. Was: 5,290 Now: 3,967.50 Available in stores
-                online. https://bit.ly/3BbgHBv #JDot #DefenceDaySale
+                <a href="/">{post?.user?.username} </a>
+                {post?.description}
               </div>
             </div>
             <div className="show_allcoments">
               {allComments.map((comment) => (
                 <div className="comment_styling">
-                  <p>{comment.text}</p>
+                  <p>
+                    <strong>{comment.username}</strong> {comment.text}
+                  </p>
                 </div>
               ))}
             </div>
-            <div className="post_time">23 HOURS AGO</div>
+            <div className="post_time">{moment(post.date).fromNow()}</div>
             <div className="comment_post">
               <InputEmoji
                 value={text}

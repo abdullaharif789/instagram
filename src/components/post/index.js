@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -17,23 +17,48 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import InputEmoji from "react-input-emoji";
 
 import "./post.css";
+import { API_URL, HEADER_TOKEN_KEY } from "../../constants";
+import axios from "axios";
+import { getAuthUser, getAuthToken } from "../../utils";
 
 export default function Post(props) {
-  const [allComments, setAllComments] = useState([]);
+  const { loading = false, post } = props;
+
+  const [allComments, setAllComments] = useState(post?.comments || []);
   const [text, setText] = useState();
   const [disable, setdisable] = useState(false);
 
-  const add_comment = () => {
-    setAllComments([{ text, username: "abdullaharif.pk" }, ...allComments]);
-    setText("");
+  const add_comment = async () => {
+    const user = getAuthUser();
+    await axios
+      .post(
+        API_URL + "comments",
+        {
+          post: post._id,
+          text: text,
+          user: user.id,
+        },
+        {
+          headers: {
+            [HEADER_TOKEN_KEY]: getAuthToken(),
+          },
+        }
+      )
+      .then(({ data }) => {
+        setAllComments([
+          ...allComments,
+          { text, user: { username: user.username } },
+        ]);
+        setText("");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   function handleOnEnter(text) {
     console.log("enter", text);
   }
-
-  const { loading = false, post } = props;
-
   return (
     <Card sx={{ borderRadius: 2, marginBottom: 3 }}>
       <CardHeader
@@ -129,7 +154,7 @@ export default function Post(props) {
               {allComments.map((comment) => (
                 <div className="comment_styling">
                   <p>
-                    <strong>{comment.username}</strong> {comment.text}
+                    <strong>{comment.user.username}</strong> {comment.text}
                   </p>
                 </div>
               ))}

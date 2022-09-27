@@ -35,10 +35,21 @@ router.post("/", userAuth, upload.single("image"), async (req, res) => {
 
 // Getting Post
 router.get("/", userAuth, async (req, res) => {
-  var posts = await Post.find().sort({ date: -1 }).populate({
-    path: "user",
-    select: "fullname username",
-  });
+  var posts = await Post.find()
+    .sort({ date: -1 })
+    .populate({
+      path: "user",
+      select: "fullname username",
+    })
+    .populate({
+      path: "comments",
+      select: "text date user",
+      populate: {
+        path: "user",
+        select: "username",
+      },
+    });
+  // .populate("comments");
   posts = posts.map((post) => ({
     ...post.toObject(),
     image: BACKEND_URL + post.image,

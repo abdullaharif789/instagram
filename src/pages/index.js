@@ -9,7 +9,8 @@ import { API_URL, HEADER_TOKEN_KEY } from "../constants";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [posts, setPost] = useState(Array.from(Array(10).keys()));
+  const [posts, setPost] = useState([]);
+  // const [posts, setPost] = useState(Array.from(Array(10).keys()));
   const [loading, setLoading] = useState(false);
   const loadPosts = async () => {
     setLoading(true);
@@ -39,6 +40,11 @@ const Index = () => {
       <div className="container index-body">
         <div className="row">
           <div className="col-12 col-md-8">
+            {posts.length == 0 && (
+              <div className="card">
+                <div className="card-body">No posts to show...</div>
+              </div>
+            )}
             {posts.map((post) => (
               <Post post={post} loading={loading} />
             ))}

@@ -42,7 +42,7 @@ const Index = () => {
           <div className="col-12 col-md-8">
             {posts.length == 0 && (
               <div className="card">
-                <div className="card-body">No posts to show...</div>
+                <div className="card-body">No posts to show.</div>
               </div>
             )}
             {posts.map((post) => (

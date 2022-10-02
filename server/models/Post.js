@@ -14,6 +14,12 @@ const PostSchema = new Schema({
       ref: "comments",
     },
   ],
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
+  ],
   date: { type: Date, default: Date.now },
 });
 const Post = mongoose.model("posts", PostSchema);

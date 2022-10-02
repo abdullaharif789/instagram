@@ -10,7 +10,8 @@ import moment from "moment";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Skeleton from "@mui/material/Skeleton";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -25,6 +26,7 @@ export default function Post(props) {
   const { loading = false, post } = props;
 
   const [allComments, setAllComments] = useState(post?.comments || []);
+  const [isLiked, setIsliked] = useState(post?.isLiked);
   const [text, setText] = useState();
   const [disable, setdisable] = useState(false);
 
@@ -59,6 +61,11 @@ export default function Post(props) {
   function handleOnEnter(text) {
     console.log("enter", text);
   }
+
+  const updateLike = () => {
+    setIsliked(!isLiked);
+  };
+  useEffect(() => {}, []);
   return (
     <Card sx={{ borderRadius: 2, marginBottom: 3 }}>
       <CardHeader
@@ -125,8 +132,12 @@ export default function Post(props) {
           <>
             <div className="post_buttons row">
               <div>
-                <i>
-                  <FavoriteBorderOutlinedIcon />
+                <i onClick={updateLike}>
+                  {isLiked ? (
+                    <FavoriteIcon sx={{ color: "#ed4956" }} />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
                 </i>
                 <i>
                   <ChatBubbleOutlineOutlinedIcon />
